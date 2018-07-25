@@ -64,7 +64,7 @@ class GameService
         return false;
     }
 
-    private function gameVictory(Board $board) {
+    public function gameVictory(Board $board) {
         $positions = $board->getPositions();
         // Check that rows match
         for ($i=0; $i < 3; $i++) { 
