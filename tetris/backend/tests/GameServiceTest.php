@@ -33,61 +33,24 @@ class GameServiceTest extends WebTestCase
         
         
         $pos=[];
-        for($i=0; $i<9;$i++)
+        $combinations=[[0,3,6],[1,4,7],[2,5,8],[0,1,2],[3.4,5],[6,7,8],[0,4,8],[2,4,6]];
+
+        $index=array_rand($combinations);
+        $result=$combinations[$index];
+
+//CROSS
+        for($i=0;$i<9;$i++)
         {
-            $pos[$i]=rand(0,1);
-            if($pos[$i]==0)
-            {
-                $pos[$i]=Board::NOUGHT;
-            }
-            else
-            {
-                $pos[$i]=Board::CROSS;
-            }            
-
+            $pos[$i]=null;
         }
 
-/*
-        
-        $pos[0]='x';
-        $pos[1]=0;
-        $pos[2]=0;
-
-        $pos[3]='x';
-        $pos[4]=0;
-        $pos[5]=0;
-
-        $pos[6]='x';
-        $pos[7]=0;
-        $pos[8]=0;
-
-*/
-
-        // Check that rows match
-        for ($i=0; $i < 3; $i++) { 
-            if ($pos[$i*3] && $pos[$i*3] === $pos[$i*3+1] && $pos[$i*3+1] === $pos[$i*3+2]) {
-                $arra= [$i*3, $i*3+1, $i*3+2];
-            }
-        }
-        // Check that columns match
-        for($i = 0; $i < 3; $i++){
-            if ($pos[$i] && $pos[$i] === $pos[$i+3] && $pos[$i+3] === $pos[$i+6]) {
-                $arra= [$i, $i+3, $i+6];
-            }
-        }
-    
-        //check diagonals 
-        if ($pos[0] && $pos[0] === $pos[4] && $pos[4] === $pos[8]) {
-            $arra= [0,4,8];
-        }
-        if ($pos[2] && $pos[2] === $pos[4] && $pos[4] === $pos[6]) {
-            $arra= [2,4,6];
-        }
-
+        $pos[$result[0]]=Board::CROSS;
+        $pos[$result[1]]=Board::CROSS;
+        $pos[$result[2]]=Board::CROSS;
 
         $tablero->setPositions($pos);
 
         $p = $this->serv->gameVictory($tablero);
-        $this->assertEquals( $arra , $p);
+        $this->assertEquals( $result , $p);
     }
 }
