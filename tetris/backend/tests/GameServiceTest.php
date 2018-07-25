@@ -28,6 +28,7 @@ class GameServiceTest extends WebTestCase
             $tablero[$i]=null;
         }
 */      
+        $arra=[];
         $tablero= new Board();
  
         $pos=[];
@@ -43,9 +44,31 @@ class GameServiceTest extends WebTestCase
         $pos[7]='x';
         $pos[8]=null;
 
+        // Check that rows match
+        for ($i=0; $i < 3; $i++) { 
+            if ($pos[$i*3] && $pos[$i*3] === $pos[$i*3+1] && $pos[$i*3+1] === $pos[$i*3+2]) {
+                $arra= [$i*3, $i*3+1, $i*3+2];
+            }
+        }
+        // Check that columns match
+        for($i = 0; $i < 3; $i++){
+            if ($pos[$i] && $pos[$i] === $pos[$i+3] && $pos[$i+3] === $pos[$i+6]) {
+                $arra= [$i, $i+3, $i+6];
+            }
+        }
+    
+        //check diagonals 
+        if ($pos[0] && $pos[0] === $pos[4] && $pos[4] === $pos[8]) {
+            $arra= [0,4,8];
+        }
+        if ($pos[2] && $pos[2] === $pos[4] && $pos[4] === $pos[6]) {
+            $arra= [2,4,6];
+        }
+
+
         $tablero->setPositions($pos);
 
         $p = $this->serv->gameVictory($tablero);
-        $this->assertEquals( [ ] , $p);
+        $this->assertEquals( $arra , $p);
     }
 }
