@@ -30,19 +30,38 @@ class GameServiceTest extends WebTestCase
 */      
         $arra=[];
         $tablero= new Board();
- 
+        
+        
         $pos=[];
-        $pos[0]=null;
-        $pos[1]=null;
+        for($i=0; $i<9;$i++)
+        {
+            $pos[$i]=rand(0,1);
+            if($pos[$i]==0)
+            {
+                $pos[$i]=Board::NOUGHT;
+            }
+            else
+            {
+                $pos[$i]=Board::CROSS;
+            }            
+
+        }
+
+/*
+        
+        $pos[0]='x';
+        $pos[1]=0;
         $pos[2]=0;
 
-        $pos[3]=0;
-        $pos[4]=null;
-        $pos[5]=null;
+        $pos[3]='x';
+        $pos[4]=0;
+        $pos[5]=0;
 
-        $pos[6]=null;
-        $pos[7]='x';
-        $pos[8]=null;
+        $pos[6]='x';
+        $pos[7]=0;
+        $pos[8]=0;
+
+*/
 
         // Check that rows match
         for ($i=0; $i < 3; $i++) { 
